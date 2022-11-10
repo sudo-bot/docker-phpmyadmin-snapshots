@@ -10,20 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
         name: Build Docker images
-    strategy:
-        fail-fast: false
-        max-parallel: 4
-        matrix:
-            include:
-                # All supported by base image
-                - { platform: "linux/386", platform-tag: "386" }
-                - { platform: "linux/amd64", platform-tag: "amd64" }
-                - { platform: "linux/arm/v5", platform-tag: "armv5" }
-                - { platform: "linux/arm/v7", platform-tag: "armv7" }
-                - { platform: "linux/arm64/v8", platform-tag: "arm64v8" }
-                - { platform: "linux/mips64le", platform-tag: "mips64le" }
-                - { platform: "linux/ppc64le", platform-tag: "ppc64le" }
-                - { platform: "linux/s390x", platform-tag: "s390x" }
 
     steps:
         - name: Check out the repository
@@ -44,6 +30,6 @@ jobs:
           run: make docker-build
           env:
             DOCKER_BUILDKIT: 1
-            PLATFORM: "${{ matrix.platform }}"
+            PLATFORM: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x"
             IMAGE_TAG: "docker.io/botsudo/phpmyadmin-snapshots:5.2-snapshot"
             ACTION: push
