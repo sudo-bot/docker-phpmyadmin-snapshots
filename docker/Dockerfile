@@ -2,8 +2,9 @@
 ARG VERSION_MAJOR="5"
 FROM phpmyadmin:${VERSION_MAJOR}
 
-ENV VERSION_RANGE="5.2"
-ARG GIST_REVISION="684f06d6802fe32ed4e70ae8a54521cfc1cfc30a"
+ARG VERSION_RANGE
+
+ARG GIST_REVISION="448611c5cefb75d88c81cc17810089fef7c23032"
 ARG GIST_URL="https://gist.githubusercontent.com/williamdes/883f2158f17e9ed5a83d892ada56f5df/raw/${GIST_REVISION}/upgradephpmyadmin.sh"
 
 RUN curl -# -o ./upgradephpmyadmin.sh "${GIST_URL}" \
