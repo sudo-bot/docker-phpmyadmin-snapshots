@@ -1,5 +1,8 @@
 # phpMyAdmin Docker snapshots
 
+[![Docker size 5.2](https://img.shields.io/docker/image-size/botsudo/phpmyadmin-snapshots/5.2-snapshot?style=flat-square)](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
+[![Docker size 5.3](https://img.shields.io/docker/image-size/botsudo/phpmyadmin-snapshots/5.3-snapshot?style=flat-square)](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
+
 ## What is different from the [official image](https://hub.docker.com/_/phpmyadmin) ?
 
 Nothing expect the contents of `/var/www/html`.
@@ -7,6 +10,10 @@ Nothing expect the contents of `/var/www/html`.
 ## Documentation
 
 Please refer to the [official image](https://hub.docker.com/_/phpmyadmin) is you have any questions.
+
+This image can be found on [Docker Hub: botsudo/phpmyadmin-snapshots](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
+
+Dockerfiles can be found on [GitHub: sudo-bot/docker-phpmyadmin-snapshots](https://github.com/sudo-bot/docker-phpmyadmin-snapshots)
 
 ## How to use
 
