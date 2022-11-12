@@ -19,7 +19,9 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                version-range: ["5.2", "5.3"]
+                include:
+                    - { version-range: "5.2", prerelease: false }
+                    - { version-range: "5.3", prerelease: true }
         steps:
             - name: Fetch hash file
               run: curl -o /tmp/hash.sha256 -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256
@@ -31,6 +33,8 @@ jobs:
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
+              with:
+                fetch-depth: 1
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
               # v5.2.0 - 111c56156bcc6918c056dbef52164cfa583dc549
@@ -43,3 +47,13 @@ jobs:
             - name: Trigger a build for ${{ matrix.version-range }}
               if: steps.cache.outputs.cache-hit != 'true'
               run: ./make-release.sh --env=${{ matrix.version-range }} -p
+            - name: Create a Release
+              if: steps.cache.outputs.cache-hit != 'true'
+              uses: opspresso/action-release@master
+              env:
+                  GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+                  TAG_NAME: ${{ env.TAG_NAME }}
+                  NAME: ${{ matrix.version-range }} series
+                  BODY: Updated ${{ matrix.version-range }} series
+                  PRERELEASE: ${{ matrix.prerelease }}
+                  ASSET_PATH: /tmp/hash.sha256
