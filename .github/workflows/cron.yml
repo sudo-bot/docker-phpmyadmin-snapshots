@@ -24,15 +24,18 @@ jobs:
                     - { version-range: "5.3", pre-release: true, is-latest: false }
         steps:
             - name: Fetch hash file
-              run: "curl -o hash.sha256 -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256"
+              run: "curl -o snapshot.json -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-${{ matrix.version-range }}+snapshot.json"
             - uses: actions/cache@v3
               id: cache
               with:
-                  path: hash.sha256
-                  key: snapshot-series-${{ matrix.version-range }}.x-${{ hashFiles('**/hash.sha256') }}
-            - name: Hash to variable
+                  path: snapshot.json
+                  key: snapshot-${{ matrix.version-range }}.x-${{ hashFiles('**/snapshot.json') }}
+            - name: Commit to variable
               if: steps.cache.outputs.cache-hit != 'true'
-              run: echo "snapshot_hash=$(cat ./hash.sha256 | cut -d' ' -f1)" >> $GITHUB_ENV
+              run: echo "snapshot_commit=$(jq -r '.commit' ./snapshot.json)" >> $GITHUB_ENV
+            - name: Date to variable
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: echo "snapshot_date=$(jq -r '.date' ./snapshot.json)" >> $GITHUB_ENV
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
@@ -63,11 +66,11 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
                   TAG_NAME: ${{ steps.create-release.outputs.TAG_NAME }}
                   NAME: ${{ matrix.version-range }} series
-                  BODY: Updated ${{ matrix.version-range }} series to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }}
+                  BODY: "Updated ${{ matrix.version-range }} series to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_commit }} built on ${{ env.snapshot_date }}"
                   PRE_RELEASE: ${{ matrix.pre-release }}
                   MAKE_LATEST: ${{ matrix.is-latest }}
                   REPO_OWNER: ${{ github.repository_owner }}
                   REPO_NAME: ${{ github.event.repository.name }}
             - name: Set the summary
               if: steps.cache.outputs.cache-hit != 'true'
-              run: echo "Updated ${{ matrix.version-range }} to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }}" >> $GITHUB_STEP_SUMMARY
+              run: echo "Updated ${{ matrix.version-range }} to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_commit }} built on ${{ env.snapshot_date }}" >> $GITHUB_STEP_SUMMARY
