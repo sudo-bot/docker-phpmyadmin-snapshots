@@ -11,7 +11,7 @@ function generate_post_data {
 {
   "tag_name": "${TAG_NAME}",
   "body": "${BODY}",
-  "draft": true,
+  "draft": false,
   "make_latest": "${MAKE_LATEST}",
   "prerelease": ${PRE_RELEASE}
 }
