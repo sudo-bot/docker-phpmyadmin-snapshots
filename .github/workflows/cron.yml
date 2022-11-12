@@ -45,6 +45,7 @@ jobs:
                   passphrase: ${{ secrets.GPG_PASSPHRASE }}
                   git_user_signingkey: true
                   git_commit_gpgsign: true
+                  workdir: ./repo
             - name: Trigger a build for ${{ matrix.version-range }}
               if: steps.cache.outputs.cache-hit != 'true'
               working-directory: ./repo
