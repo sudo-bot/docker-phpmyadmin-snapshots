@@ -62,8 +62,7 @@ jobs:
                   BODY: Updated ${{ matrix.version-range }} series
                   PRE_RELEASE: ${{ matrix.pre-release }}
                   MAKE_LATEST: ${{ matrix.is-latest }}
-                  REPO_OWNER: ${{ github.repository_owner }}
-                  REPO_NAME: ${GITHUB_REPOSITORY#*/}
+                  REPO_SLUG: ${{ github.event.repository.name }}
             - name: Set the summary
               if: steps.cache.outputs.cache-hit != 'true'
               run: echo "Updated ${{ matrix.version-range }}" >> $GITHUB_STEP_SUMMARY
