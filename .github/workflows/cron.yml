@@ -24,15 +24,15 @@ jobs:
                     - { version-range: "5.3", pre-release: true, is-latest: false }
         steps:
             - name: Fetch hash file
-              run: curl -o hash.sha256 -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256
+              run: "curl -o hash.sha256 -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256"
             - uses: actions/cache@v3
               id: cache
               with:
                   path: hash.sha256
-                  key: series-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
+                  key: snapshot-series-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
             - name: Hash to variable
               if: steps.cache.outputs.cache-hit != 'true'
-              run: echo "snapshot_hash=$(cat ./hash.sha256)" >> $GITHUB_ENV
+              run: echo "snapshot_hash=$(cat ./hash.sha256 | cut -d' ' -f1)" >> $GITHUB_ENV
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
