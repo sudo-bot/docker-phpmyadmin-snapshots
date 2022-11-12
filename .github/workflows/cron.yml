@@ -11,7 +11,10 @@ on:
         - cron: "*/30 * * * *"
 
 jobs:
-    build-action:
+    run-cron:
+        name: Build on snapshot changed
+        environment:
+            name: Trigger snapshot update
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
@@ -28,6 +31,15 @@ jobs:
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
+            - name: Import GPG key
+              if: steps.cache.outputs.cache-hit != 'true'
+              # v5.2.0 - 111c56156bcc6918c056dbef52164cfa583dc549
+              uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+              with:
+                  gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.GPG_PASSPHRASE }}
+                  git_user_signingkey: true
+                  git_commit_gpgsign: true
             - name: Trigger a build for ${{ matrix.version-range }}
               if: steps.cache.outputs.cache-hit != 'true'
               run: ./make-release.sh --env=${{ matrix.version-range }} -p
