@@ -52,7 +52,8 @@ jobs:
               run: ./make-release.sh --env=${{ matrix.version-range }} -p
             - name: Create a Release
               if: steps.cache.outputs.cache-hit != 'true'
-              uses: opspresso/action-release@master
+              # v0.2.9 - 8a89c3b58af268d5b17a58b016e91a90d8e6ba76
+              uses: opspresso/action-release@8a89c3b58af268d5b17a58b016e91a90d8e6ba76
               env:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
                   TAG_NAME: ${{ env.TAG_NAME }}
