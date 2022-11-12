@@ -29,7 +29,7 @@ jobs:
               id: cache
               with:
                   path: hash.sha256
-                  key: snapshot-series-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
+                  key: snapshot-series-${{ matrix.version-range }}.x-${{ hashFiles('**/hash.sha256') }}
             - name: Hash to variable
               if: steps.cache.outputs.cache-hit != 'true'
               run: echo "snapshot_hash=$(cat ./hash.sha256 | cut -d' ' -f1)" >> $GITHUB_ENV
@@ -38,6 +38,7 @@ jobs:
               uses: actions/checkout@v3
               with:
                 fetch-depth: 1
+                ref: 'main'
                 path: repo
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
