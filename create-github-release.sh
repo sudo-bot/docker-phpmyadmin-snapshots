@@ -9,6 +9,7 @@ set -eu
 function generate_post_data {
   cat <<EOF
 {
+  "name": "${NAME}",
   "tag_name": "${TAG_NAME}",
   "body": "${BODY}",
   "draft": false,
