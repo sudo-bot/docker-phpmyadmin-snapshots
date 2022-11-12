@@ -12,7 +12,7 @@ function generate_post_data {
   "tag_name": "${TAG_NAME}",
   "body": "${BODY}",
   "draft": true,
-  "make_latest": ${MAKE_LATEST},
+  "make_latest": "${MAKE_LATEST}",
   "prerelease": ${PRE_RELEASE}
 }
 EOF
