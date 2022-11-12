@@ -30,4 +30,4 @@ jobs:
               uses: actions/checkout@v3
             - name: Trigger a build for ${{ matrix.version-range }}
               if: steps.cache.outputs.cache-hit != 'true'
-              run: ./make-release --env=${{ matrix.version-range }} -p
+              run: ./make-release.sh --env=${{ matrix.version-range }} -p
