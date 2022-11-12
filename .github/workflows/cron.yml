@@ -29,7 +29,7 @@ jobs:
               id: cache
               with:
                   path: hash.sha256
-                  key: ${{ runner.os }}-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
+                  key: ${{ runner.os }}-${{ matrix.version-range }}.x-${{ hashFiles('**/hash.sha256') }}
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
