@@ -21,4 +21,4 @@ EOF
 curl \
     -H "Authorization: token ${GITHUB_TOKEN}" \
     -H "Accept: application/vnd.github+json" \
-    --data "$(generate_post_data)" "https://api.github.com/repos/${REPO_SLUG}/releases"
+    --data "$(generate_post_data)" "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/releases"
