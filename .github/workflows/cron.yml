@@ -29,8 +29,9 @@ jobs:
               id: cache
               with:
                   path: hash.sha256
-                  key: release-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
+                  key: series-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
             - name: Hash to variable
+              if: steps.cache.outputs.cache-hit != 'true'
               run: echo "snapshot_hash=$(cat ./hash.sha256)" >> $GITHUB_ENV
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
