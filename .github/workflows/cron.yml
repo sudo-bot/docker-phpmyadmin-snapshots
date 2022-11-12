@@ -62,11 +62,11 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
                   TAG_NAME: ${{ steps.create-release.outputs.TAG_NAME }}
                   NAME: ${{ matrix.version-range }} series
-                  BODY: Updated ${{ matrix.version-range }} series to [${{ env.snapshot_hash }}](https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }})
+                  BODY: Updated ${{ matrix.version-range }} series to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }}
                   PRE_RELEASE: ${{ matrix.pre-release }}
                   MAKE_LATEST: ${{ matrix.is-latest }}
                   REPO_OWNER: ${{ github.repository_owner }}
                   REPO_NAME: ${{ github.event.repository.name }}
             - name: Set the summary
               if: steps.cache.outputs.cache-hit != 'true'
-              run: echo "Updated ${{ matrix.version-range }} to [${{ env.snapshot_hash }}](https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }})" >> $GITHUB_STEP_SUMMARY
+              run: echo "Updated ${{ matrix.version-range }} to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_hash }}" >> $GITHUB_STEP_SUMMARY
