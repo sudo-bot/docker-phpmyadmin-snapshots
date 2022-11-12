@@ -49,6 +49,7 @@ jobs:
             - name: Trigger a build for ${{ matrix.version-range }}
               if: steps.cache.outputs.cache-hit != 'true'
               working-directory: ./repo
+              id: create-release
               run: ./make-release.sh --env=${{ matrix.version-range }} -p
             - name: Create a Release
               if: steps.cache.outputs.cache-hit != 'true'
@@ -56,8 +57,11 @@ jobs:
               uses: opspresso/action-release@8a89c3b58af268d5b17a58b016e91a90d8e6ba76
               env:
                   GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-                  TAG_NAME: ${{ env.TAG_NAME }}
+                  TAG_NAME: ${{ steps.create-release.outputs.TAG_NAME }}
                   NAME: ${{ matrix.version-range }} series
                   BODY: Updated ${{ matrix.version-range }} series
                   PRERELEASE: ${{ matrix.prerelease }}
                   ASSET_PATH: hash.sha256
+            - name: Set the summary
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: echo "Updated ${{ matrix.version-range }}" >> $GITHUB_STEP_SUMMARY
