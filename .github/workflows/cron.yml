@@ -22,12 +22,12 @@ jobs:
                 version-range: ["5.2", "5.3"]
         steps:
             - name: Fetch hash file
-              run: curl -o hash.sha256 -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256
+              run: curl -o /tmp/hash.sha256 -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-5.2+snapshot-all-languages.zip.sha256
             - uses: actions/cache@v3
               id: cache
               with:
-                  path: hash.sha256
-                  key: ${{ runner.os }}-${{ matrix.version-range }}-${{ hashFiles('**/hash.sha256') }}
+                  path: /tmp/hash.sha256
+                  key: ${{ runner.os }}-${{ matrix.version-range }}-${{ hashFiles('/tmp/hash.sha256') }}
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
