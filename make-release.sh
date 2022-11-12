@@ -120,13 +120,14 @@ fi
 
 echo "New version: $VERSION_NAME"
 if [ -z "${TAG_NAME}" ]; then
-    echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_OUTPUT
+    echo "TAG_NAME=${VERSION_NAME}" >> $GITHUB_OUTPUT
     git tag --sign --message="release: $VERSION_NAME
 user: $USER" $VERSION_NAME
     if [ ${PUSH_TAG} -eq 1 ]; then
         git push origin $VERSION_NAME
     fi
 else
+    echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_OUTPUT
     echo "Using tag: ${TAG_NAME}"
 fi
 
