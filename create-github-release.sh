@@ -11,7 +11,7 @@ function generate_post_data {
 {
   "tag_name": "${TAG_NAME}",
   "owner": "${REPO_OWNER}",
-  "repo": "${REPO_REPO}",
+  "repo": "${REPO_NAME}",
   "body": "${BODY}",
   "draft": true,
   "make_latest": ${MAKE_LATEST},
