@@ -31,6 +31,23 @@ Dockerfiles can be found on [GitHub: sudo-bot/docker-phpmyadmin-snapshots](https
 + image: botsudo/phpmyadmin-snapshots:5.3-snapshot
 ```
 
+## Is there telemetry ?
+
+No. We do not care about it, we want bug reports from our users: https://github.com/phpmyadmin/phpmyadmin/issues/new/choose
+
+## How can I trust this image ?
+
+You can but also should check. Trust also needs to be checked for software !
+
+Install [container-diff](https://github.com/GoogleContainerTools/container-diff).
+
+- File list `container-diff diff --type file remote://phpmyadmin:5 remote://botsudo/phpmyadmin-snapshots:5.2-snapshot`
+- As json `container-diff diff --json --type file daemon://phpmyadmin:5 daemon://botsudo/phpmyadmin-snapshots:5.2-snapshot`
+
+TLDR;
+
+No system files are changed, at all. The source is installed by [this script/gist](https://gist.github.com/williamdes/883f2158f17e9ed5a83d892ada56f5df) that you can run on your server.
+
 ## How can I keep up to date ?
 
 Use [watchtower](https://containrrr.dev/watchtower/).
