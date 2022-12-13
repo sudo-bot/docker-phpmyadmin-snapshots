@@ -17,14 +17,14 @@ Dockerfiles can be found on [GitHub: sudo-bot/docker-phpmyadmin-snapshots](https
 
 ## How to use
 
-### 5.2 versions
+### 5.2 versions (currently in support for bug fixes)
 
 ```diff
 - image: phpmyadmin:5
 + image: botsudo/phpmyadmin-snapshots:5.2-snapshot
 ```
 
-### 5.3 versions
+### 5.3 versions (not released yet, early early testers only !)
 
 ```diff
 - image: phpmyadmin:5
