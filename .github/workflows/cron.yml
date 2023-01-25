@@ -29,14 +29,13 @@ jobs:
               run: cat ./snapshot.json
             - name: Commit to variable
               run: echo "snapshot_commit=$(jq -r '.commit' ./snapshot.json)" >> $GITHUB_ENV
+            - name: Date to variable
+              run: echo "snapshot_date=$(jq -r '.date' ./snapshot.json)" >> $GITHUB_ENV
             - uses: actions/cache@v3
               id: cache
               with:
                   path: snapshot.json
-                  key: snapshot-${{ matrix.version-range }}-${{ env.snapshot_commit }}
-            - name: Date to variable
-              if: steps.cache.outputs.cache-hit != 'true'
-              run: echo "snapshot_date=$(jq -r '.date' ./snapshot.json)" >> $GITHUB_ENV
+                  key: snapshot-${{ matrix.version-range }}-${{ env.snapshot_commit }}-${{ env.snapshot_date }}
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
               uses: actions/checkout@v3
