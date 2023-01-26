@@ -57,19 +57,19 @@ Use [watchtower](https://containrrr.dev/watchtower/).
     image: botsudo/phpmyadmin-snapshots:5.2-snapshot
     # ...
     labels:
-      com.centurylinklabs.watchtower.enable: true
+      com.centurylinklabs.watchtower.enable: "true"
 
   watchtower:
     image: containrrr/watchtower
     environment:
         # Only containers with the label: com.centurylinklabs.watchtower.enable
-        WATCHTOWER_LABEL_ENABLE: true
+        WATCHTOWER_LABEL_ENABLE: "true"
         # Remove the old container: https://containrrr.dev/watchtower/arguments/#cleanup
-        WATCHTOWER_CLEANUP: true
+        WATCHTOWER_CLEANUP: "true"
         # Also restart the container
-        WATCHTOWER_INCLUDE_RESTARTING: true
+        WATCHTOWER_INCLUDE_RESTARTING: "true"
         # Poll interval in seconds (43200 = 12h, 86400 = 24h): https://containrrr.dev/watchtower/arguments/#poll_interval
-        WATCHTOWER_POLL_INTERVAL: 43200
+        WATCHTOWER_POLL_INTERVAL: "43200"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
