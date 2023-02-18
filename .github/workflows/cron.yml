@@ -21,7 +21,7 @@ jobs:
             matrix:
                 include:
                     - { version-range: "5.2", pre-release: false, is-latest: true }
-                    - { version-range: "5.3", pre-release: true, is-latest: false }
+                    - { version-range: "6.0", pre-release: true, is-latest: false }
         steps:
             - name: Fetch hash file
               run: "curl -vv -o snapshot.json -H 'Cache-Control: no-cache, no-store' -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-${{ matrix.version-range }}+snapshot.json"
