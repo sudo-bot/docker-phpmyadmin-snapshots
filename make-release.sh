@@ -56,10 +56,10 @@ shift $((OPTIND-1)) # remove parsed options and args from $@ list
 if [ ${SHOW_HELP} -gt 0 ]; then
     echo 'Usage:'
     echo './make-release.sh --env=5.2 -p'
-    echo './make-release.sh --env=5.3 -p'
+    echo './make-release.sh --env=6.0 -p'
     echo 'POSIX options:		long options:'
     echo '  -h                      --help          To have some help'
-    echo '  -e                      --env=          To specify the env (5.2/5.3)'
+    echo '  -e                      --env=          To specify the env (5.2/6.0)'
     echo '  -n                      --tag-name=     To specify the tag name'
     echo '  -p                      --push-tag      To push the tag'
     echo '  -o                      --offline       Do not fetch tags'

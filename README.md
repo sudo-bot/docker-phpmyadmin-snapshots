@@ -1,7 +1,7 @@
 # phpMyAdmin Docker snapshots
 
 [![Docker size 5.2](https://img.shields.io/docker/image-size/botsudo/phpmyadmin-snapshots/5.2-snapshot?style=flat-square)](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
-[![Docker size 5.3](https://img.shields.io/docker/image-size/botsudo/phpmyadmin-snapshots/5.3-snapshot?style=flat-square)](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
+[![Docker size 6.0](https://img.shields.io/docker/image-size/botsudo/phpmyadmin-snapshots/6.0-snapshot?style=flat-square)](https://hub.docker.com/r/botsudo/phpmyadmin-snapshots)
 
 ## What is different from the [official image](https://hub.docker.com/_/phpmyadmin) ?
 
@@ -24,11 +24,13 @@ Dockerfiles can be found on [GitHub: sudo-bot/docker-phpmyadmin-snapshots](https
 + image: botsudo/phpmyadmin-snapshots:5.2-snapshot
 ```
 
-### 5.3 versions (not released yet, early early testers only !)
+### 6.0 versions (not released yet, early early testers only !)
+
+Do not use this version if you do not intend to do **very early testing!**
 
 ```diff
-- image: phpmyadmin:5
-+ image: botsudo/phpmyadmin-snapshots:5.3-snapshot
+- image: phpmyadmin:latest
++ image: botsudo/phpmyadmin-snapshots:6.0-snapshot
 ```
 
 ## Is there telemetry ?
