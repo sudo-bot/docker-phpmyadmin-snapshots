@@ -38,7 +38,7 @@ jobs:
                   key: snapshot-${{ matrix.version-range }}-${{ env.snapshot_commit }}-${{ env.snapshot_date }}
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                 fetch-depth: 1
                 ref: 'main'
