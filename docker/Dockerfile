@@ -4,7 +4,7 @@ FROM phpmyadmin:${VERSION_MAJOR}
 
 ARG VERSION_RANGE
 
-ARG GIST_REVISION="6a5b820fd37a6b399b65974ea6b05c2e181bdf2b"
+ARG GIST_REVISION="22141449cd988ea4c9c3dd6640fe50932a06e55d"
 ARG GIST_URL="https://gist.githubusercontent.com/williamdes/883f2158f17e9ed5a83d892ada56f5df/raw/${GIST_REVISION}/upgradephpmyadmin.sh"
 
 RUN curl -# -o ./upgradephpmyadmin.sh "${GIST_URL}" \
