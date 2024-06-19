@@ -44,6 +44,8 @@ jobs:
                 ref: 'main'
                 path: repo
                 token: ${{ secrets.SUDO_BOT_TOKEN }}
+                # Already the default value, but so you understand the push command will have creds
+                persist-credentials: true
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
               # v5.2.0 - 111c56156bcc6918c056dbef52164cfa583dc549
