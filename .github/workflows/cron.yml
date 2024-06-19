@@ -1,7 +1,7 @@
 name: Build on snapshot changed
 
 permissions:
-    contents: write
+    contents: none
 
 on:
     repository_dispatch:
@@ -31,7 +31,7 @@ jobs:
               run: echo "snapshot_commit=$(jq -r '.commit' ./snapshot.json)" >> $GITHUB_ENV
             - name: Date to variable
               run: echo "snapshot_date=$(jq -r '.date' ./snapshot.json)" >> $GITHUB_ENV
-            - uses: actions/cache@v3
+            - uses: actions/cache@v4
               id: cache
               with:
                   path: snapshot.json
@@ -43,6 +43,7 @@ jobs:
                 fetch-depth: 1
                 ref: 'main'
                 path: repo
+                token: ${{ secrets.SUDO_BOT_TOKEN }}
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
               # v5.2.0 - 111c56156bcc6918c056dbef52164cfa583dc549
@@ -63,7 +64,7 @@ jobs:
               working-directory: ./repo
               run: ./create-github-release.sh "${{ matrix.version-range }}" "${{ matrix.pre-release }}"
               env:
-                  GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.SUDO_BOT_TOKEN }}
                   TAG_NAME: ${{ steps.create-release.outputs.TAG_NAME }}
                   NAME: ${{ matrix.version-range }} series
                   BODY: "Updated ${{ matrix.version-range }} series to https://github.com/phpmyadmin/phpmyadmin/commit/${{ env.snapshot_commit }} built on ${{ env.snapshot_date }}"
