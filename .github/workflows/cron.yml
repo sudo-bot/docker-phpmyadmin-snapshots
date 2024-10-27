@@ -24,7 +24,7 @@ jobs:
                     - { version-range: "6.0", pre-release: true, is-latest: false }
         steps:
             - name: Fetch hash file
-              run: "curl -vv -o snapshot.json -H 'Cache-Control: no-cache, no-store' -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-${{ matrix.version-range }}+snapshot.json"
+              run: "curl -f -v -o snapshot.json -H 'Cache-Control: no-cache, no-store' -H 'User-Agent: phpmyadmin-snapshot-updater (+https://github.com/sudo-bot/docker-phpmyadmin-snapshots; williamdes@wdes.fr)' -s https://files.phpmyadmin.net/snapshots/phpMyAdmin-${{ matrix.version-range }}%2Bsnapshot.json"
             - name: Display file
               run: cat ./snapshot.json
             - name: Commit to variable
@@ -48,8 +48,8 @@ jobs:
                 persist-credentials: true
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
-              # v5.2.0 - 111c56156bcc6918c056dbef52164cfa583dc549
-              uses: crazy-max/ghaction-import-gpg@111c56156bcc6918c056dbef52164cfa583dc549
+              # v6.2.0 - cb9bde2e2525e640591a934b1fd28eef1dcaf5e5
+              uses: crazy-max/ghaction-import-gpg@cb9bde2e2525e640591a934b1fd28eef1dcaf5e5
               with:
                   gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
                   passphrase: ${{ secrets.GPG_PASSPHRASE }}
