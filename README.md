@@ -85,6 +85,6 @@ We support as much as the base image [(`phpmyadmin:5`)](https://hub.docker.com/_
 - `linux/arm/v5`
 - `linux/arm/v7`
 - `linux/arm64/v8`
-- `linux/mips64le`
+- `linux/riscv64`
 - `linux/ppc64le`
 - `linux/s390x`
