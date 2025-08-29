@@ -4,8 +4,8 @@ permissions:
     contents: read
 
 on:
+  workflow_dispatch:
   release:
-    workflow_dispatch:
     types: [published]
 
 jobs:
