@@ -4,8 +4,6 @@ permissions:
     contents: none
 
 on:
-    repository_dispatch:
-        types: run-cron
     workflow_dispatch:
     schedule:
         - cron: "*/30 * * * *"

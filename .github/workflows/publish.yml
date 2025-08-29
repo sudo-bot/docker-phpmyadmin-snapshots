@@ -5,6 +5,7 @@ permissions:
 
 on:
   release:
+    workflow_dispatch:
     types: [published]
 
 jobs:
