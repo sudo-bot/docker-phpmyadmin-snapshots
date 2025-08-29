@@ -34,7 +34,7 @@ jobs:
           if: startsWith(github.ref, 'refs/tags/5.2/')
           env:
             DOCKER_BUILDKIT: 1
-            PLATFORM: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x"
+            PLATFORM: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x"
             IMAGE_TAG: "docker.io/botsudo/phpmyadmin-snapshots:5.2-snapshot"
             VERSION_RANGE: "5.2"
             ACTION: push
@@ -44,7 +44,7 @@ jobs:
           if: startsWith(github.ref, 'refs/tags/6.0/')
           env:
             DOCKER_BUILDKIT: 1
-            PLATFORM: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/riscv64,linux/s390x"
+            PLATFORM: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x"
             IMAGE_TAG: "docker.io/botsudo/phpmyadmin-snapshots:6.0-snapshot"
             VERSION_RANGE: "6.0"
             ACTION: push
