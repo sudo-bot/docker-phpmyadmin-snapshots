@@ -26,7 +26,7 @@ Dockerfiles can be found on [GitHub: sudo-bot/docker-phpmyadmin-snapshots](https
 
 ### 6.0 versions (not released yet, early early testers only !)
 
-Do not use this version if you do not intend to do **very early testing!**
+Do not use this version if you do not intend to do **early testing!**
 
 ```diff
 - image: phpmyadmin:latest
