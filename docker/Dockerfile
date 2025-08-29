@@ -8,10 +8,11 @@ ARG GIST_REVISION="462a4fde9c82f4e0b028e35c751625d278d8303c"
 ARG GIST_URL="https://gist.githubusercontent.com/williamdes/883f2158f17e9ed5a83d892ada56f5df/raw/${GIST_REVISION}/upgradephpmyadmin.sh"
 
 RUN set -eux; \
-    curl -# -o ./upgradephpmyadmin.sh "${GIST_URL}"; \
-    chmod +x ./upgradephpmyadmin.sh; \
+    curl -# -o /tmp/upgradephpmyadmin.sh "${GIST_URL}"; \
+    chmod +x /tmp/upgradephpmyadmin.sh; \
     echo "Version-range: ${VERSION_RANGE}"; \
-    ./upgradephpmyadmin.sh /var/www/ www-data www-data "${VERSION_RANGE}+snapshot" html; \
+    /tmp/upgradephpmyadmin.sh /var/www/ www-data www-data "${VERSION_RANGE}+snapshot" html; \
+    rm -v /tmp/upgradephpmyadmin.sh; \
     export CONFIG_FILE="/var/www/html/libraries/vendor_config.php"; \
     if [ ! -f $CONFIG_FILE ]; then export CONFIG_FILE="/var/www/html/app/vendor_config.php"; fi; \
     # Source: https://github.com/phpmyadmin/docker/blob/905cae841eff6eb0d24755435f44e26af0488093/apache/Dockerfile#L112-L115
