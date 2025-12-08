@@ -5,7 +5,7 @@
 
 ## What is different from the [official image](https://hub.docker.com/_/phpmyadmin) ?
 
-Nothing expect the contents of `/var/www/html`.
+Nothing except the contents of `/var/www/html`.
 
 ## Documentation
 
