@@ -29,14 +29,14 @@ jobs:
               run: echo "snapshot_commit=$(jq -r '.commit' ./snapshot.json)" >> $GITHUB_ENV
             - name: Date to variable
               run: echo "snapshot_date=$(jq -r '.date' ./snapshot.json)" >> $GITHUB_ENV
-            - uses: actions/cache@v4
+            - uses: actions/cache@v5
               id: cache
               with:
                   path: snapshot.json
                   key: snapshot-${{ matrix.version-range }}-${{ env.snapshot_commit }}-${{ env.snapshot_date }}
             - name: Checkout repository
               if: steps.cache.outputs.cache-hit != 'true'
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                 fetch-depth: 1
                 ref: 'main'
@@ -46,8 +46,8 @@ jobs:
                 persist-credentials: true
             - name: Import GPG key
               if: steps.cache.outputs.cache-hit != 'true'
-              # v6.3.0 - e89d40939c28e39f97cf32126055eeae86ba74ec
-              uses: crazy-max/ghaction-import-gpg@e89d40939c28e39f97cf32126055eeae86ba74ec
+              # v7.0.0 - 2dc316deee8e90f13e1a351ab510b4d5bc0c82cd
+              uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd
               with:
                   gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
                   passphrase: ${{ secrets.GPG_PASSPHRASE }}
