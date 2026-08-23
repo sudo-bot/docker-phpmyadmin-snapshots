@@ -80,6 +80,8 @@ echo "Get last release"
 TODAY_TAG="$ENV/$(date +'%Y-%m-%d')"
 # Last tag at the end sorted by the format of the tag
 DAY_TAGS=$(git tag -l HEAD "$TODAY_TAG*" | sort -t / -k 2,2 -n)
+# Last tag for the env
+LAST_ENV_TAG=$(git tag -l HEAD "$ENV/*" | sort -t / -k 2,2 -n | tail -n 1)
 
 # No tag name defined so use the latest tag
 if [ -z "${TAG_NAME}" ]; then
@@ -132,5 +134,20 @@ else
 fi
 
 TAG_WORKS=$?
+
+if [ ! -z "$LAST_ENV_TAG" ]; then
+    {
+        echo "## Release ${VERSION_NAME}"
+        echo ""
+        echo "To compare the diff: \`git diff ${PREVIOUS_RELEASE:-$LAST_ENV_TAG}...${VERSION_NAME}\`"
+        echo ""
+        echo "[Compare the diff online](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/${PREVIOUS_RELEASE:-$LAST_ENV_TAG}...${VERSION_NAME})"
+        echo ""
+        echo "Commits:"
+        echo ""
+        git log ${PREVIOUS_RELEASE:-$LAST_ENV_TAG}...${VERSION_NAME} --format="- %s (%b%-C()) by %an"
+        echo ""
+    } >> "$GITHUB_STEP_SUMMARY"
+fi
 
 exit $TAG_WORKS
