@@ -41,12 +41,12 @@ No. We do not care about it, we want bug reports from our users: https://github.
 
 You can but also should check. Trust also needs to be checked for software !
 
-Install [container-diff](https://github.com/GoogleContainerTools/container-diff).
+Use [diffoci](https://github.com/reproducible-containers/diffoci) to compare the snapshot with the official image, including the local one you built yourself.
 
-- File list `container-diff diff --type file remote://phpmyadmin:5 remote://botsudo/phpmyadmin-snapshots:5.2-snapshot`
-- As json `container-diff diff --json --type file daemon://phpmyadmin:5 daemon://botsudo/phpmyadmin-snapshots:5.2-snapshot`
+- Full report in a directory (ignores timestamps and image names) `diffoci diff --semantic --report-dir=/tmp/diff docker://phpmyadmin:5 docker://botsudo/phpmyadmin-snapshots:5.2-snapshot`
+- Against the image you just built `diffoci diff --semantic --report-dir=/tmp/diff docker://phpmyadmin:5 docker://phpmyadmin:local`
 
-[container-diff](https://github.com/GoogleContainerTools/container-diff) is not replaced by [diffoci](https://github.com/reproducible-containers/diffoci).
+[container-diff](https://github.com/GoogleContainerTools/container-diff) is not maintained anymore (the repository is archived since March 2024), it is replaced by [diffoci](https://github.com/reproducible-containers/diffoci), which understands multi-arch images and OCI layouts.
 
 TLDR;
 
